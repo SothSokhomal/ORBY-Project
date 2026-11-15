@@ -48,6 +48,8 @@ export interface AstronautCrew {
   taskSecondsElapsed?: number;
   /** Total real-world seconds this task runs before completing and returning to idle */
   taskDurationSeconds?: number;
+  /** Mission day on which this crew member last completed a task — used to track daily progress */
+  lastCompletedDay?: number;
 }
 
 export type CrisisType =

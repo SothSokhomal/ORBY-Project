@@ -8,6 +8,7 @@ import { X, Heart, Shield, Activity, Wrench, Sprout, Zap, Moon, FlaskConical, Ma
 import { AstronautCrew, CrewTask } from '../../types/game.ts';
 import { spatialAudio } from '../../audio/SpatialAudioManager.ts';
 import { TaskBriefingCard, taskStationName } from './TaskBriefingCard.tsx';
+import { TASK_DURATIONS } from '../../game/survivalRules.ts';
 
 interface AstronautModalProps {
   crew: AstronautCrew | null;
@@ -280,15 +281,23 @@ export const AstronautModal: React.FC<AstronautModalProps> = ({
                       </div>
                     </div>
 
-                    {isDispatched ? (
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded border text-amber-300 bg-amber-900/60 border-amber-700 whitespace-nowrap ml-2">
-                        BUSY
-                      </span>
-                    ) : isCurrentTask ? (
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded border text-cyan-300 bg-cyan-900/60 border-cyan-700 whitespace-nowrap ml-2">
-                        ACTIVE
-                      </span>
-                    ) : null}
+                    <div className="flex items-center gap-1.5 ml-2 shrink-0">
+                      {/* ⏱ duration badge */}
+                      {TASK_DURATIONS[t.id] > 0 && (
+                        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-700/60 border border-slate-600/40 text-slate-400 whitespace-nowrap">
+                          ⏱ {TASK_DURATIONS[t.id] === 60 ? '1 min' : '2 min'}
+                        </span>
+                      )}
+                      {isDispatched ? (
+                        <span className="text-[10px] font-black px-2 py-0.5 rounded border text-amber-300 bg-amber-900/60 border-amber-700 whitespace-nowrap">
+                          BUSY
+                        </span>
+                      ) : isCurrentTask ? (
+                        <span className="text-[10px] font-black px-2 py-0.5 rounded border text-cyan-300 bg-cyan-900/60 border-cyan-700 whitespace-nowrap">
+                          ACTIVE
+                        </span>
+                      ) : null}
+                    </div>
                   </button>
                 );
               })}

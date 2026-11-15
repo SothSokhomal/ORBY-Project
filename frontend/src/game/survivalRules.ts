@@ -14,15 +14,16 @@ import {
 } from '../types/game.ts';
 import { getDefaultGearLoadout, getGearItem, PAYLOAD_CAP_KG, getMissionModule } from './gearSystem.ts';
 
-/** Real-world seconds each task runs before completing and returning the crew to idle. */
+/** Real-world seconds each task runs before completing and returning the crew to idle.
+ *  Field/Engineering tasks: 2 min (120s). Standard/Quick tasks: 1 min (60s). */
 export const TASK_DURATIONS: Record<string, number> = {
-  eva_repair:    180, // 3 min — complex EVA + suit checkout
-  power_grid:    150, // 2.5 min — calibration cycle
-  hydroponics:   120, // 2 min — daily cultivation routine
-  research:      180, // 3 min — instrument sweeps + sample logging
-  resting:       120, // 2 min — minimum sleep/recovery block
-  storm_shelter: 0,   // No timer — stays until crisis resolved
-  idle:          0,
+  eva_repair:    120, // 2 min — field/engineering
+  power_grid:    120, // 2 min — field/engineering
+  hydroponics:   120, // 2 min — field/engineering
+  research:      120, // 2 min — field/engineering
+  resting:        60, // 1 min — standard/quick
+  storm_shelter:   0, // No timer — stays until crisis resolved
+  idle:            0,
 };
 import { TOTAL_HOURS, MISSION_SECONDS, MISSION_DAYS, HOURS_PER_DAY, missionDay } from '../config/clock.ts';
 import { DIFFICULTY_LEVELS, DEFAULT_DIFFICULTY, type DifficultyId } from '../config/difficulty.ts';
@@ -673,9 +674,9 @@ export function tickSimulation(
   }
 
   // Real-time task timer — independent of game speed (Decision D-04 pacing)
-  // dtRealSec converts simulation deltaDays to real elapsed seconds so timers always
-  // feel the same duration regardless of 1x–2x speed setting.
-  const dtRealSec = (deltaDays * 86400) / (state.clockSpeed * 86.4);
+  // deltaDays = 0.15 * (intervalMs/1000) * clockSpeed, so dtRealSec = deltaDays / (0.15 * clockSpeed).
+  // At 1x with 100ms tick: deltaDays=0.015 → dtRealSec=0.1s per tick. A 120s task completes in 120s. ✓
+  const dtRealSec = deltaDays / (0.15 * state.clockSpeed);
   newState.crew.forEach((c) => {
     if (c.health <= 0 || c.task === 'idle' || c.task === 'storm_shelter') return;
     const dur = c.taskDurationSeconds ?? 0;
@@ -905,6 +906,7 @@ export function completeCrewTask(
         task: 'idle' as CrewTask,
         taskSecondsElapsed: 0,
         taskDurationSeconds: 0,
+        lastCompletedDay: state.day,
       };
     }),
   };

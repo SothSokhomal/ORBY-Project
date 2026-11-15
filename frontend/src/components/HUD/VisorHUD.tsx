@@ -94,9 +94,10 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
 
   // Derive early so hooks can reference them (declared before any useEffect)
   const _livingCrew = gameState.crew.filter((c) => c.health > 0);
-  const _allCrewIdle = _livingCrew.length > 0 && _livingCrew.every(
-    (c) => c.task === 'idle' || (c.taskDurationSeconds === 0 && c.task !== 'storm_shelter')
-  );
+  // Only nag when ALL living crew are idle AND at least one hasn't done their task today
+  const _allCrewIdle = _livingCrew.length > 0 &&
+    _livingCrew.every((c) => c.task === 'idle' || (c.taskDurationSeconds === 0 && c.task !== 'storm_shelter')) &&
+    _livingCrew.some((c) => c.lastCompletedDay !== gameState.day);
   const _batteryPct = gameState.resources.batteryMax > 0
     ? Math.round((gameState.resources.batteryKwh / gameState.resources.batteryMax) * 100)
     : 0;
@@ -1069,6 +1070,24 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
           </div>
         )}
 
+        {/* Daily progress pill — "Day X: N / 4 Done" */}
+        {(() => {
+          const doneTodayCount = _livingCrew.filter((c) => c.lastCompletedDay === gameState.day).length;
+          const totalCrew = _livingCrew.length;
+          const allDone = doneTodayCount === totalCrew && totalCrew > 0;
+          if (doneTodayCount === 0) return null;
+          return (
+            <div className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-[9px] font-mono font-bold uppercase tracking-wider border self-center ${
+              allDone
+                ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300'
+                : 'bg-slate-900/70 border-slate-700/60 text-slate-400'
+            }`}>
+              <span>{allDone ? '✓' : '⏳'}</span>
+              <span>Day {gameState.day}: {doneTodayCount} / {totalCrew} Done</span>
+            </div>
+          );
+        })()}
+
         {/* Collapse / Expand Tab Toggle */}
         <button
           onClick={() => setIsDockCollapsed(!isDockCollapsed)}
@@ -1121,6 +1140,7 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
             const timerPct = hasTimer ? Math.min(100, (taskElapsed / taskDur) * 100) : 0;
             const timerMM = Math.floor(timerRemSec / 60).toString().padStart(2, '0');
             const timerSS = (timerRemSec % 60).toString().padStart(2, '0');
+            const completedToday = member.lastCompletedDay === currentDay && member.task === 'idle';
 
             // Active-task card border treatment
             const isActiveTask = hasTimer && !timerDone;
@@ -1128,6 +1148,8 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
               ? 'border-amber-500/90 ring-2 ring-amber-500/30 bg-slate-800/95 shadow-amber-900/40 shadow-lg'
               : timerDone
               ? 'border-emerald-500/80 ring-2 ring-emerald-500/30 bg-slate-800/95 animate-pulse'
+              : completedToday
+              ? 'border-emerald-700/60 bg-emerald-950/20'
               : gameState.selectedCrewId === member.id
               ? 'border-cyan-400 ring-2 ring-cyan-400/50 bg-slate-800/90'
               : 'bg-slate-900/70 border-slate-800 hover:border-slate-600 hover:bg-slate-800/50';
@@ -1190,6 +1212,10 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
                         {taskStationName(member.task)}
                       </div>
                     </>
+                  ) : completedToday ? (
+                    <div className="text-[8px] truncate uppercase font-mono font-semibold text-emerald-400">
+                      DONE TODAY ✓
+                    </div>
                   ) : (
                     <div className={`text-[8px] truncate uppercase font-mono font-semibold ${member.task === 'idle' ? 'text-slate-500' : 'text-amber-300/90'}`}>
                       {member.task === 'idle' ? '— IDLE —' : taskLabel}
