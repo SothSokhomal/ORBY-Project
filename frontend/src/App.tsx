@@ -469,7 +469,8 @@ export default function App() {
     engineRef.current?.setLevel('LEVEL_LUNAR_SURFACE');
     setGameState(newState);
     setModalCrewId(null);
-  }, []);
+    navigateTo({ screen: 'LUNAR_OUTPOST' });
+  }, [navigateTo]);
 
   const handleRestartToLanding = useCallback(() => {
     spatialAudio.playUiClick(700);

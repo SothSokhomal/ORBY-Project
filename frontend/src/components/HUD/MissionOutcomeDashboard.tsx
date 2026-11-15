@@ -23,6 +23,9 @@ import {
   Calendar,
   Users,
   Star,
+  Award,
+  Printer,
+  ArrowLeft,
 } from 'lucide-react';
 import { GameSimulationState, GameLevel } from '../../types/game.ts';
 import { spatialAudio } from '../../audio/SpatialAudioManager.ts';
@@ -49,6 +52,30 @@ function pct(val: number, max: number): number {
   return max > 0 ? Math.min(100, Math.round((val / max) * 100)) : 0;
 }
 
+function calcStarRating(
+  isVictory: boolean,
+  aliveCount: number,
+  resources: GameSimulationState['resources'],
+  highScore: number
+): 1 | 2 | 3 {
+  if (!isVictory) return 1;
+  const resourceAvg = (
+    pct(resources.oxygenKg, resources.oxygenMax) +
+    pct(resources.waterLiters, resources.waterMax) +
+    pct(resources.foodMeals, resources.foodMax) +
+    pct(resources.batteryKwh, resources.batteryMax)
+  ) / 4;
+  if (aliveCount === 4 && resourceAvg >= 40 && highScore >= 2000) return 3;
+  if (aliveCount >= 3 && resourceAvg >= 20) return 2;
+  return 1;
+}
+
+const STAR_LABELS: Record<1 | 2 | 3, { label: string; desc: string }> = {
+  1: { label: '1 Star — Survived', desc: 'You kept the outpost alive under tough conditions. Try again for a higher rating!' },
+  2: { label: '2 Stars — Good Work', desc: 'Solid management! Resources held and most crew made it home safely.' },
+  3: { label: '3 Stars — Excellent', desc: 'Outstanding mission! All crew survived with strong resources and science data.' },
+};
+
 // ─── Crew card colours matched to survivalRules.ts roster ───────────────────
 
 const CREW_PALETTE: Record<string, { ring: string; text: string; badge: string; icon: string }> = {
@@ -68,6 +95,7 @@ export const MissionOutcomeDashboard: React.FC<MissionOutcomeDashboardProps> = (
   onViewStory,
 }) => {
   const [showResources, setShowResources] = useState(false);
+  const [showCertificate, setShowCertificate] = useState(false);
 
   const {
     missionOutcome,
@@ -84,6 +112,8 @@ export const MissionOutcomeDashboard: React.FC<MissionOutcomeDashboardProps> = (
   const isVictory = missionOutcome === 'VICTORY';
   const aliveCrew = crew.filter((c) => c.health > 0);
   const aliveCount = aliveCrew.length;
+  const stars = calcStarRating(isVictory, aliveCount, resources, highScore);
+  const completionDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   // ── Outcome text ──────────────────────────────────────────────────────────
   const headlineText = isVictory ? 'YOU WIN' : 'YOU LOSE';
@@ -106,6 +136,7 @@ export const MissionOutcomeDashboard: React.FC<MissionOutcomeDashboardProps> = (
     : 'bg-red-600 hover:bg-red-500 shadow-red-950';
 
   return (
+    <>
     <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-3 md:p-6 bg-black/88 backdrop-blur-md pointer-events-auto select-none overflow-y-auto">
       <div
         className={`w-full max-w-2xl rounded-3xl bg-[#181b2a]/97 border-2 ${borderColor} ${glowClass} p-4 sm:p-5 md:p-7 flex flex-col text-white my-auto`}
@@ -283,6 +314,34 @@ export const MissionOutcomeDashboard: React.FC<MissionOutcomeDashboardProps> = (
           )}
         </div>
 
+        {/* ══ STAR RATING ════════════════════════════════════════════════════ */}
+        <div className="shrink-0 mb-3 p-3 rounded-xl bg-slate-800/50 border border-slate-700/60">
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div className="flex flex-col gap-0.5">
+              <div className="flex items-center gap-1">
+                {[1, 2, 3].map((n) => (
+                  <Star
+                    key={n}
+                    className={`w-5 h-5 sm:w-6 sm:h-6 ${n <= stars ? 'text-amber-400 fill-amber-400' : 'text-slate-700'}`}
+                  />
+                ))}
+                <span className="ml-1.5 text-xs font-bold text-amber-300" style={{ fontFamily: 'var(--font-hud)' }}>
+                  {STAR_LABELS[stars].label}
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400 leading-snug max-w-xs">{STAR_LABELS[stars].desc}</p>
+            </div>
+            <button
+              onClick={() => { spatialAudio.playUiClick(900); setShowCertificate(true); }}
+              className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600/20 hover:bg-amber-600/35 border border-amber-500/50 text-amber-300 hover:text-amber-200 text-xs font-bold uppercase tracking-wider cursor-pointer transition-all"
+              style={{ fontFamily: 'var(--font-hud)' }}
+            >
+              <Award className="w-3.5 h-3.5" />
+              <span>Certificate</span>
+            </button>
+          </div>
+        </div>
+
         {/* ══ ACTION CONTROLS ════════════════════════════════════════════════ */}
         <div className="shrink-0 flex flex-col sm:flex-row items-center gap-2 border-t border-slate-700/60 pt-3">
           {/* Primary: Play Again */}
@@ -322,6 +381,118 @@ export const MissionOutcomeDashboard: React.FC<MissionOutcomeDashboardProps> = (
 
       </div>
     </div>
+
+    {/* ══ CERTIFICATE OVERLAY ══════════════════════════════════════════════ */}
+    {showCertificate && (
+      <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md pointer-events-auto select-none">
+        <div
+          id="orby-certificate"
+          className="relative w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl"
+          style={{
+            background: 'linear-gradient(145deg, #0d1117 0%, #161b2e 40%, #0d1117 100%)',
+            border: '2px solid rgba(251,191,36,0.6)',
+            boxShadow: '0 0 60px rgba(251,191,36,0.15)',
+          }}
+        >
+          {/* Top accent bar */}
+          <div className="h-1.5 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500" />
+
+          <div className="p-6 sm:p-8 flex flex-col items-center text-center gap-4">
+            {/* NASA-style seal */}
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500/20 to-amber-800/10 border-2 border-amber-400/60 flex items-center justify-center shadow-inner">
+              <Award className="w-8 h-8 text-amber-400" />
+            </div>
+
+            {/* Header */}
+            <div>
+              <p className="text-[9px] font-black tracking-[0.3em] text-amber-400/80 uppercase font-mono">
+                ARTEMIS III — ORBY SPACE PROGRAM
+              </p>
+              <h2 className="text-xl sm:text-2xl font-black tracking-wide text-white mt-1"
+                  style={{ fontFamily: 'var(--font-display)', textShadow: '0 0 20px rgba(251,191,36,0.3)' }}>
+                Mission Certificate
+              </h2>
+            </div>
+
+            {/* Body text */}
+            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              This certifies that
+            </p>
+            <p className="text-lg sm:text-xl font-black text-amber-300 tracking-widest"
+               style={{ fontFamily: 'var(--font-display)' }}>
+              {callsign}
+            </p>
+            <p className="text-xs text-slate-300 leading-relaxed max-w-sm">
+              {isVictory
+                ? `successfully commanded Artemis Base Camp at the Lunar South Pole for ${day} of 90 days, with ${aliveCount} of 4 crew surviving.`
+                : `demonstrated bravery and leadership at the Lunar South Pole, reaching Day ${day} of 90 before the mission was discontinued.`}
+            </p>
+
+            {/* Mission label */}
+            <div className="px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] text-amber-400 font-bold font-mono tracking-widest uppercase">
+              90-Day Lunar South Pole Mission
+            </div>
+
+            {/* Stars */}
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex items-center gap-2">
+                {[1, 2, 3].map((n) => (
+                  <Star
+                    key={n}
+                    className={`w-7 h-7 ${n <= stars ? 'text-amber-400 fill-amber-400' : 'text-slate-700'}`}
+                    style={n <= stars ? { filter: 'drop-shadow(0 0 6px rgba(251,191,36,0.6))' } : {}}
+                  />
+                ))}
+              </div>
+              <p className="text-xs font-bold text-amber-300" style={{ fontFamily: 'var(--font-hud)' }}>
+                {STAR_LABELS[stars].label}
+              </p>
+            </div>
+
+            {/* Score + Date */}
+            <div className="flex gap-6 text-center">
+              <div>
+                <p className="text-[9px] text-slate-500 uppercase tracking-wider font-mono">Final Score</p>
+                <p className="text-base font-black text-white tabular-nums" style={{ fontFamily: 'var(--font-hud)' }}>
+                  {highScore.toLocaleString()}
+                </p>
+              </div>
+              <div className="w-px bg-slate-700" />
+              <div>
+                <p className="text-[9px] text-slate-500 uppercase tracking-wider font-mono">Date</p>
+                <p className="text-xs font-bold text-slate-200">{completionDate}</p>
+              </div>
+              <div className="w-px bg-slate-700" />
+              <div>
+                <p className="text-[9px] text-slate-500 uppercase tracking-wider font-mono">Status</p>
+                <p className={`text-xs font-black ${isVictory ? 'text-emerald-400' : 'text-red-400'}`}>
+                  {isVictory ? 'COMPLETE' : 'INCOMPLETE'}
+                </p>
+              </div>
+            </div>
+
+            {/* Footer rule */}
+            <div className="w-full border-t border-amber-500/20 pt-3 flex gap-3 justify-center">
+              <button
+                onClick={() => { spatialAudio.playUiClick(); window.print(); }}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider cursor-pointer transition-all"
+              >
+                <Printer className="w-3.5 h-3.5" />
+                <span>Print / Save</span>
+              </button>
+              <button
+                onClick={() => { spatialAudio.playUiClick(700); setShowCertificate(false); }}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-bold uppercase tracking-wider cursor-pointer transition-all"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+  </>
   );
 };
 

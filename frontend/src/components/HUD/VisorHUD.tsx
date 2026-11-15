@@ -435,6 +435,39 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
         }}
       />
 
+      {/* ── Hazard / Crisis Overlay — animated tint when danger is high ───── */}
+      {(activeCrisis && !activeCrisis.resolved) && (
+        <div
+          className="absolute inset-0 pointer-events-none animate-pulse"
+          style={{
+            boxShadow: activeCrisis.severity === 'CRITICAL'
+              ? 'inset 0 0 160px rgba(239,68,68,0.28)'
+              : 'inset 0 0 120px rgba(251,146,60,0.22)',
+            background: activeCrisis.severity === 'CRITICAL'
+              ? 'radial-gradient(ellipse at center, transparent 50%, rgba(239,68,68,0.08) 100%)'
+              : 'radial-gradient(ellipse at center, transparent 55%, rgba(251,146,60,0.06) 100%)',
+          }}
+        />
+      )}
+      {(!activeCrisis || activeCrisis.resolved) && o2Pct <= 15 && (
+        <div
+          className="absolute inset-0 pointer-events-none animate-pulse"
+          style={{
+            boxShadow: 'inset 0 0 140px rgba(56,189,248,0.25)',
+            background: 'radial-gradient(ellipse at center, transparent 55%, rgba(56,189,248,0.06) 100%)',
+          }}
+        />
+      )}
+      {(!activeCrisis || activeCrisis.resolved) && batteryPct <= 15 && (
+        <div
+          className="absolute inset-0 pointer-events-none animate-pulse"
+          style={{
+            boxShadow: 'inset 0 0 140px rgba(251,191,36,0.22)',
+            background: 'radial-gradient(ellipse at center, transparent 55%, rgba(251,191,36,0.06) 100%)',
+          }}
+        />
+      )}
+
       {/* ========================================================================= */}
       {/* 1. TOP UNIFIED AEROSPACE NAVIGATION BAR (DECISIONS D-02, D-04, D-05)      */}
       {/* ========================================================================= */}

@@ -28,6 +28,7 @@ export const StatusModals: React.FC<StatusModalsProps> = ({
   onSetLevel,
 }) => {
   const [showStory, setShowStory] = useState(false);
+  const [confirmRestart, setConfirmRestart] = useState(false);
   const { mode, missionOutcome, callsign } = gameState;
 
   if (mode === 'playing') return null;
@@ -50,53 +51,68 @@ export const StatusModals: React.FC<StatusModalsProps> = ({
             Callsign: {callsign} · Day {gameState.day} / 90
           </p>
 
-          <div className="space-y-3">
-            <button
-              onClick={() => {
-                spatialAudio.playUiClick();
-                onResume();
-              }}
-              className="w-full py-2.5 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Play className="w-4 h-4 fill-current" />
-              <span>RESUME FLIGHT</span>
-            </button>
-
-            <button
-              onClick={() => {
-                spatialAudio.playUiClick();
-                onRestart();
-              }}
-              className="w-full py-2.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer border border-slate-700"
-            >
-              <RotateCcw className="w-4 h-4" />
-              <span>RESTART SIMULATION</span>
-            </button>
-
-            {onRestartToLanding && (
+          {confirmRestart ? (
+            /* ── Confirm restart guard ── */
+            <div className="space-y-3">
+              <div className="p-3 rounded-lg bg-amber-950/40 border border-amber-600/40 text-center">
+                <p className="text-xs text-amber-300 font-bold uppercase tracking-wide">Restart mission?</p>
+                <p className="text-[10px] text-slate-400 mt-1">All progress will be lost. This cannot be undone.</p>
+              </div>
               <button
-                onClick={() => {
-                  spatialAudio.playUiClick();
-                  onRestartToLanding();
-                }}
-                className="w-full py-2.5 rounded bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                onClick={() => { spatialAudio.playUiClick(); onRestart(); setConfirmRestart(false); }}
+                className="w-full py-2.5 rounded bg-red-700 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <RotateCcw className="w-4 h-4" />
+                <span>YES — RESTART NOW</span>
+              </button>
+              <button
+                onClick={() => setConfirmRestart(false)}
+                className="w-full py-2 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs uppercase tracking-wider flex items-center justify-center cursor-pointer border border-slate-700"
+              >
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <button
+                onClick={() => { spatialAudio.playUiClick(); onResume(); }}
+                className="w-full py-2.5 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Play className="w-4 h-4 fill-current" />
+                <span>RESUME FLIGHT</span>
+              </button>
+
+              <button
+                onClick={() => { spatialAudio.playUiClick(); onReturnToTitle(); }}
+                className="w-full py-2.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer border border-slate-700"
               >
                 <Home className="w-4 h-4" />
-                <span>RESTART TO LANDING PAGE</span>
+                <span>MAIN MENU</span>
               </button>
-            )}
 
-            <button
-              onClick={() => {
-                spatialAudio.playUiClick();
-                onReturnToTitle();
-              }}
-              className="w-full py-2.5 rounded hover:bg-slate-800 text-slate-400 hover:text-white text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Home className="w-4 h-4" />
-              <span>MAIN MENU</span>
-            </button>
-          </div>
+              {/* Dangerous actions — collapsed under a divider */}
+              <div className="pt-1 border-t border-slate-800">
+                <p className="text-[9px] text-slate-600 uppercase tracking-widest text-center mb-2 font-mono">End Mission</p>
+                <button
+                  onClick={() => setConfirmRestart(true)}
+                  className="w-full py-2 rounded bg-slate-900 hover:bg-red-950/60 text-slate-500 hover:text-red-300 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer border border-slate-800 hover:border-red-700/50 transition-all"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Restart Simulation</span>
+                </button>
+
+                {onRestartToLanding && (
+                  <button
+                    onClick={() => { spatialAudio.playUiClick(); onRestartToLanding(); }}
+                    className="mt-2 w-full py-2 rounded bg-slate-900 hover:bg-amber-950/50 text-slate-500 hover:text-amber-300 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer border border-slate-800 hover:border-amber-700/50 transition-all"
+                  >
+                    <Home className="w-3.5 h-3.5" />
+                    <span>Return to Landing Page</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
