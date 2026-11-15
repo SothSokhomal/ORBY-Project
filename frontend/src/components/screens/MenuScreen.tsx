@@ -111,39 +111,33 @@ export const MenuScreen: React.FC<MenuScreenProps> = ({
               </span>
             </div>
 
-            {/* Glass Panel Housing 4 Metallic Buttons */}
-            <div className="w-full p-6 sm:p-8 rounded-3xl orby-glass flex flex-col gap-4">
+            {/* Glass Panel Housing 2 Metallic Buttons */}
+            <div className="w-full p-6 sm:p-8 rounded-3xl orby-glass flex flex-col gap-5">
               {/* 1. GAME START */}
-              <MetalButton
-                onClick={onGameStart}
-                className="w-full py-4 text-base sm:text-lg"
-              >
-                GAME START
-              </MetalButton>
+              <div className="flex flex-col gap-1">
+                <MetalButton
+                  onClick={onGameStart}
+                  className="w-full py-4 text-base sm:text-lg"
+                >
+                  GAME START
+                </MetalButton>
+                <p className="text-center text-xs text-slate-400 font-mono tracking-wide">
+                  Lead 4 astronauts at the Lunar South Pole for 90 days.
+                </p>
+              </div>
 
-              {/* 2. PRACTICE */}
-              <MetalButton
-                onClick={onPractice}
-                className="w-full py-4 text-base sm:text-lg"
-              >
-                PRACTICE
-              </MetalButton>
-
-              {/* 3. SOLAR SYSTEM */}
-              <MetalButton
-                onClick={onSolarSystem}
-                className="w-full py-4 text-base sm:text-lg"
-              >
-                SOLAR SYSTEM
-              </MetalButton>
-
-              {/* 4. COMPETE */}
-              <MetalButton
-                onClick={onCompete}
-                className="w-full py-4 text-base sm:text-lg"
-              >
-                COMPETE
-              </MetalButton>
+              {/* 2. SOLAR SYSTEM */}
+              <div className="flex flex-col gap-1">
+                <MetalButton
+                  onClick={onSolarSystem}
+                  className="w-full py-4 text-base sm:text-lg"
+                >
+                  SOLAR SYSTEM
+                </MetalButton>
+                <p className="text-center text-xs text-slate-400 font-mono tracking-wide">
+                  Explore planets and moons with real NASA data.
+                </p>
+              </div>
 
               {/* Commander Readiness Bar */}
               <div className="mt-3 flex items-center gap-3 px-2">
@@ -198,9 +192,9 @@ export const MenuScreen: React.FC<MenuScreenProps> = ({
               spatialAudio.playUiClick(700);
               onBackToLanding();
             }}
-            className="text-slate-400 hover:text-white cursor-pointer transition-colors"
+            className="px-5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-600 hover:border-slate-400 text-slate-200 hover:text-white font-semibold text-sm cursor-pointer transition-all flex items-center gap-2"
           >
-            ← Back to Landing
+            ← Back
           </button>
         )}
         <span className="ml-auto">

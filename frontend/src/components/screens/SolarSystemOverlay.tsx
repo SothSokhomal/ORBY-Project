@@ -211,18 +211,11 @@ export const SolarSystemOverlay: React.FC<SolarSystemOverlayProps> = ({
               </button>
             )}
 
-            {activeBodyData.id === 'Mars' && onEstablishOutpost && (
-              <button
-                onClick={() => {
-                  spatialAudio.playUiClick(1200);
-                  onEstablishOutpost('Mars');
-                }}
-                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-red-950/60 transition-all cursor-pointer flex items-center justify-center gap-2 border border-orange-400/80 active:scale-98"
-              >
-                <Rocket className="w-4 h-4 text-white" />
-                <span>ESTABLISH MARTIAN BASE</span>
-                <ChevronRight className="w-4 h-4 text-white" />
-              </button>
+            {activeBodyData.id === 'Mars' && (
+              <div className="w-full py-2.5 px-4 rounded-xl bg-slate-800/60 border border-orange-500/30 text-orange-300/80 text-xs font-mono tracking-wide flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5 shrink-0 text-orange-400/70" />
+                <span>Educational Preview — Active mission: Lunar South Pole only. Mars outpost coming in Season 02.</span>
+              </div>
             )}
 
             {/* Back to Solar Orbit Button */}

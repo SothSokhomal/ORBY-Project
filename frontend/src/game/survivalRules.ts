@@ -471,6 +471,72 @@ export function tickSimulation(
   newState.resources.waterLiters = Math.max(0, newState.resources.waterLiters - waterBurnRate);
   newState.resources.foodMeals = Math.max(0, newState.resources.foodMeals - foodBurnRate);
 
+  // Resource-critical alert logs — fire once when each resource first hits zero
+  if (state.resources.oxygenKg > 0 && newState.resources.oxygenKg <= 0) {
+    newState.logs.unshift({
+      id: `alert-o2-zero-${Date.now()}`,
+      day: newDay,
+      timestamp: `DAY ${newDay} — CRITICAL`,
+      sender: 'ECLSS LIFE SUPPORT',
+      message: 'OXYGEN DEPLETED! Crew entering hypoxia. Assign someone to EVA repair immediately or all crew will be lost.',
+      type: 'crisis',
+    });
+  }
+  if (state.resources.waterLiters > 0 && newState.resources.waterLiters <= 0) {
+    newState.logs.unshift({
+      id: `alert-water-zero-${Date.now()}`,
+      day: newDay,
+      timestamp: `DAY ${newDay} — CRITICAL`,
+      sender: 'ECLSS WATER RECYCLER',
+      message: 'WATER SUPPLY EXHAUSTED! Crew dehydration begins now. Health drops 40 points per day until water is restored.',
+      type: 'crisis',
+    });
+  }
+  if (state.resources.foodMeals > 0 && newState.resources.foodMeals <= 0) {
+    newState.logs.unshift({
+      id: `alert-food-zero-${Date.now()}`,
+      day: newDay,
+      timestamp: `DAY ${newDay} — WARNING`,
+      sender: 'HYDROPONICS BAY',
+      message: 'FOOD STORES EMPTY! Starvation sets in. Assign crew to Hydroponics to slow the decline.',
+      type: 'alert',
+    });
+  }
+  // Low-resource early warnings (fire once when crossing threshold)
+  const o2Pct = newState.resources.oxygenKg / (newState.resources.oxygenMax ?? 1000);
+  const waterPct = newState.resources.waterLiters / (newState.resources.waterMax ?? 2500);
+  const foodPct = newState.resources.foodMeals / (newState.resources.foodMax ?? 720);
+  if (state.resources.oxygenKg / (state.resources.oxygenMax ?? 1000) > 0.15 && o2Pct <= 0.15) {
+    newState.logs.unshift({
+      id: `warn-o2-low-${Date.now()}`,
+      day: newDay,
+      timestamp: `DAY ${newDay} — WARNING`,
+      sender: 'ECLSS SENSOR',
+      message: 'Oxygen below 15%. Check the O2 generator. Dark periods consume reserves fast.',
+      type: 'alert',
+    });
+  }
+  if (state.resources.waterLiters / (state.resources.waterMax ?? 2500) > 0.15 && waterPct <= 0.15) {
+    newState.logs.unshift({
+      id: `warn-water-low-${Date.now()}`,
+      day: newDay,
+      timestamp: `DAY ${newDay} — WARNING`,
+      sender: 'WATER RECYCLER',
+      message: 'Water below 15%. Assign Dr. Vance to Hydroponics to boost recycling efficiency.',
+      type: 'alert',
+    });
+  }
+  if (state.resources.foodMeals / (state.resources.foodMax ?? 720) > 0.20 && foodPct <= 0.20) {
+    newState.logs.unshift({
+      id: `warn-food-low-${Date.now()}`,
+      day: newDay,
+      timestamp: `DAY ${newDay} — WARNING`,
+      sender: 'HYDROPONICS BAY',
+      message: 'Food stores below 20%. Put a crew member on Hydroponics duty now.',
+      type: 'alert',
+    });
+  }
+
   // Crisis Generation (Scheduled & Dynamic per Decision D-04: auto-pauses until player decides)
   if (!newState.activeCrisis) {
     // Day 18: Recycler Malfunction
@@ -646,10 +712,10 @@ export function tickSimulation(
       c.morale = Math.max(0, c.morale - 20 * deltaDays);
     }
 
-    // Food starvation
+    // Food starvation — 25 health/day: kills in ~4 days if unaddressed
     if (newState.resources.foodMeals <= 0) {
-      c.health = Math.max(0, c.health - 15 * deltaDays);
-      c.morale = Math.max(0, c.morale - 15 * deltaDays);
+      c.health = Math.max(0, c.health - 25 * deltaDays);
+      c.morale = Math.max(0, c.morale - 20 * deltaDays);
     }
 
     // Freezing habitat cold if heating shed (Rule DR-07)

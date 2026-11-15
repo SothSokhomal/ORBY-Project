@@ -158,15 +158,6 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
             <span>Crew</span>
           </button>
 
-          <button
-            onClick={() => {
-              spatialAudio.playUiClick(800);
-              onOpenSignIn();
-            }}
-            className="px-5 py-1.5 rounded-full border border-purple-500/60 text-purple-200 hover:text-white hover:border-purple-400 text-sm font-sans font-medium transition-all cursor-pointer bg-purple-950/20 hover:bg-purple-900/30"
-          >
-            Sign In
-          </button>
         </nav>
       </header>
 
