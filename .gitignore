@@ -1,0 +1,37 @@
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+frontend/node_modules/
+
+# ── Build outputs ─────────────────────────────────────────────────────────────
+dist/
+frontend/dist/
+*.tsbuildinfo
+
+# ── Environment secrets — NEVER commit real keys ──────────────────────────────
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ── Python ────────────────────────────────────────────────────────────────────
+.venv/
+**/__pycache__/
+**/*.pyc
+*.egg-info/
+.pytest_cache/
+
+# ── Large NASA raw data files (>50 MB — use Git LFS or store externally) ──────
+backend/data/raw/orby_lunar_regional_clean.csv
+backend/data/raw/FY20 ADC Regional Data File High Precision 3.csv
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ── OS / Editor ───────────────────────────────────────────────────────────────
+.DS_Store
+.vscode/
+.idea/
+*.swp
+.aistudio/
+**/assets/aistudio/

@@ -1,0 +1,218 @@
+[
+  {
+    "activityID": "2016-01-01T23:12:00-CME-001",
+    "catalog": "M2M_CATALOG",
+    "startTime": "2016-01-01T23:12Z",
+    "instruments": [
+      {
+        "displayName": "SOHO: LASCO/C2"
+      },
+      {
+        "displayName": "SOHO: LASCO/C3"
+      },
+      {
+        "displayName": "STEREO A: SECCHI/COR2"
+      }
+    ],
+    "sourceLocation": "S21W73",
+    "activeRegionNum": 12473,
+    "note": "CME is caused by an M2.3 class flare peaking at 00:13Z that caused the remaining filaments in the area to lift off resulting in a rather large eruption with lots of moving and opening field lines and post eruptive arcades in SDO 193, 171, and 304.",
+    "cmeAnalyses": [
+      {
+        "isMostAccurate": false,
+        "levelOfData": 0,
+        "time21_5": "2016-01-02T01:43Z",
+        "latitude": -35.0,
+        "longitude": 80.0,
+        "halfAngle": 36.0,
+        "speed": 1549.0,
+        "type": "O",
+        "featureCode": "null",
+        "imageType": "null",
+        "measurementTechnique": "null",
+        "note": "These measurements were done using swpc_cat c3 imagery. The CME is possibly more eastward and north than these measurements suggest but this helps to get a good idea of the speed.",
+        "minorHalfWidth": null,
+        "speedMeasuredAtHeight": null,
+        "tilt": null,
+        "submissionTime": "2016-01-02T14:01Z",
+        "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CMEAnalysis/9972/-1",
+        "enlilList": []
+      },
+      {
+        "isMostAccurate": false,
+        "levelOfData": 0,
+        "time21_5": "2016-01-02T01:42Z",
+        "latitude": -34.0,
+        "longitude": 73.0,
+        "halfAngle": 37.0,
+        "speed": 1588.0,
+        "type": "O",
+        "featureCode": "null",
+        "imageType": "null",
+        "measurementTechnique": "null",
+        "note": "This measurement done in swpc_cat using C3 images and reflects a lower longitude than previous measurements which is more representative of the projection of the CME.",
+        "minorHalfWidth": null,
+        "speedMeasuredAtHeight": null,
+        "tilt": null,
+        "submissionTime": "2016-01-02T14:46Z",
+        "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CMEAnalysis/9973/-1",
+        "enlilList": []
+      },
+      {
+        "isMostAccurate": true,
+        "levelOfData": 0,
+        "time21_5": "2016-01-01T23:12Z",
+        "latitude": -34.0,
+        "longitude": 73.0,
+        "halfAngle": 37.0,
+        "speed": 1588.0,
+        "type": "O",
+        "featureCode": "null",
+        "imageType": "null",
+        "measurementTechnique": "null",
+        "note": "",
+        "minorHalfWidth": null,
+        "speedMeasuredAtHeight": null,
+        "tilt": null,
+        "submissionTime": "2016-01-02T16:52Z",
+        "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CMEAnalysis/9976/-1",
+        "enlilList": [
+          {
+            "modelCompletionTime": "2016-01-02T16:47Z",
+            "au": 2.0,
+            "estimatedShockArrivalTime": null,
+            "isEarthGB": false,
+            "isEarthMinorImpact": false,
+            "rmin_re": null,
+            "kp_18": null,
+            "kp_90": null,
+            "kp_135": null,
+            "kp_180": null,
+            "estimatedDuration": null,
+            "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/WSA-ENLIL/9975/-1",
+            "impactList": [
+              {
+                "location": "Mars",
+                "arrivalTime": "2016-01-05T06:40Z",
+                "isGlancingBlow": false,
+                "isMinorImpact": false
+              }
+            ],
+            "cmeIDs": [
+              "2016-01-02T02:36:00-CME-001",
+              "2016-01-02T23:12:00-CME-001",
+              "2016-01-01T23:12:00-CME-001"
+            ]
+          },
+          {
+            "modelCompletionTime": "2016-01-02T20:55Z",
+            "au": 5.5,
+            "estimatedShockArrivalTime": null,
+            "isEarthGB": false,
+            "isEarthMinorImpact": false,
+            "rmin_re": null,
+            "kp_18": null,
+            "kp_90": null,
+            "kp_135": null,
+            "kp_180": null,
+            "estimatedDuration": null,
+            "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/WSA-ENLIL/9978/-1",
+            "impactList": [
+              {
+                "location": "Juno",
+                "arrivalTime": "2016-01-16T12:00Z",
+                "isGlancingBlow": true,
+                "isMinorImpact": false
+              },
+              {
+                "location": "Mars",
+                "arrivalTime": "2016-01-05T06:33Z",
+                "isGlancingBlow": false,
+                "isMinorImpact": false
+              }
+            ],
+            "cmeIDs": [
+              "2016-01-02T02:36:00-CME-001",
+              "2016-01-02T23:12:00-CME-001",
+              "2016-01-01T23:12:00-CME-001"
+            ]
+          }
+        ]
+      }
+    ],
+    "linkedEvents": [
+      {
+        "activityID": "2016-01-01T23:10:00-FLR-001"
+      },
+      {
+        "activityID": "2016-01-02T02:48:00-SEP-001"
+      },
+      {
+        "activityID": "2016-01-02T04:30:00-SEP-001"
+      }
+    ],
+    "sentNotifications": [
+      {
+        "messageID": "20160102-AL-005",
+        "messageIssueTime": "2016-01-02T15:05Z",
+        "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/9974/1"
+      },
+      {
+        "messageID": "20160102-AL-006",
+        "messageIssueTime": "2016-01-02T17:32Z",
+        "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/9977/1"
+      },
+      {
+        "messageID": "20160102-AL-007",
+        "messageIssueTime": "2016-01-02T21:30Z",
+        "messageURL": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/9979/1"
+      }
+    ],
+    "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CME/9968/-1",
+    "submissionTime": "2016-01-02T14:42Z",
+    "versionId": 4
+  },
+  {
+    "activityID": "2016-01-03T07:12:00-CME-001",
+    "catalog": "M2M_CATALOG",
+    "startTime": "2016-01-03T07:12Z",
+    "instruments": [
+      {
+        "displayName": "SOHO: LASCO/C2"
+      },
+      {
+        "displayName": "SOHO: LASCO/C3"
+      }
+    ],
+    "sourceLocation": "",
+    "activeRegionNum": null,
+    "note": "This is associated with a faint, narrow, almost continuous stream of material visible in SOHO LASCO C2 starting around 03:00Z.",
+    "cmeAnalyses": [
+      {
+        "isMostAccurate": true,
+        "levelOfData": 0,
+        "time21_5": "2016-01-03T17:06Z",
+        "latitude": -25.0,
+        "longitude": 53.0,
+        "halfAngle": 18.0,
+        "speed": 598.0,
+        "type": "C",
+        "featureCode": "null",
+        "imageType": "null",
+        "measurementTechnique": "null",
+        "note": "There are preliminary measurements based off of limited LASCO C3 imagery using swpc_cat.",
+        "minorHalfWidth": null,
+        "speedMeasuredAtHeight": null,
+        "tilt": null,
+        "submissionTime": "2016-01-03T14:05Z",
+        "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CMEAnalysis/9982/-1",
+        "enlilList": []
+      }
+    ],
+    "linkedEvents": null,
+    "sentNotifications": null,
+    "link": "https://ccmc.gsfc.nasa.gov/DONKI/view/CME/9981/-1",
+    "submissionTime": "2016-01-03T14:03Z",
+    "versionId": 1
+  }
+]

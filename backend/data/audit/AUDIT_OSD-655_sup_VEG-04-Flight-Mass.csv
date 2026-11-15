@@ -1,0 +1,24 @@
+column,dtype,non_null,null_count,null_pct
+Batch,str,12,0,0.0
+SN,str,12,0,0.0
+BarCode,str,12,0,0.0
+Weight (g),str,12,0,0.0
+Pillow Weight (g),str,12,0,0.0
+# Established,str,12,0,0.0
+Establishment Notes,str,12,0,0.0
+"# Leaves, unsan.",str,0,12,100.0
+"# Leaves, Prosan",str,0,12,100.0
+"# Leaves, Total",str,0,12,100.0
+MMD Masses (g),str,8,4,33.3
+Unnamed: 11,str,8,4,33.3
+Unnamed: 12,str,8,4,33.3
+Consumption Avg. (g),str,8,4,33.3
+Return Samples (g),str,8,4,33.3
+Harvested (g),str,0,12,100.0
+Broken Leaves (g),str,0,12,100.0
+Total (g),str,8,4,33.3
+Trt. Sum (g),str,2,10,83.3
+Trt Avg. (g),str,2,10,83.3
+g/leaf,str,0,12,100.0
+Sample SD,str,2,10,83.3
+SE,str,2,10,83.3

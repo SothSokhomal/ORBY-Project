@@ -1,0 +1,6 @@
+{
+  "name": "Project Artemis: 90 Days on the Lunar Frontier",
+  "description": "An interactive 3D space survival game and lunar colony simulator powered by Three.js and WebGL. Manage life support, survive cosmic hazards, explore planetary navigation, and command your ACES astronaut crew.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

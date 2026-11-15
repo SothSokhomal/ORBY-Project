@@ -1,0 +1,54 @@
+{
+  "datasetId": "NASA-DONKI-2026-11-14",
+  "releaseDate": "2026-11-14",
+  "sourceMission": "NASA DONKI (solar weather) + AES ECLSS baselines + KRUSTY + OSDR RadLab",
+  "dataSources": {
+    "solarFlares": "Reference: X8.7 flare 2024-05-14 (Solar Cycle 25 peak, NOAA AR 13664, GOES-18). Largest flare of Solar Cycle 25; observed by GOES-18. NOAA Active Region 13664.",
+    "cmeAnalysis": "NASA DONKI CMEAnalysis API — 259 CME events (2024-11-01 to 2024-12-31). Top speed: 3161 km/s",
+    "eclss": "NASA AES Human Metabolic Baseline JSC-20584",
+    "kilopower": "KRUSTY Demonstration (2018), NASA Glenn Research Center — Poston et al.",
+    "radlab": "NASA OSDR RadLab ISS Dosimetry Database + GCR lunar surface models (Zeitlin 2013, Reitz 2009)"
+  },
+  "thermal": {
+    "craterName": "Shackleton Crater Rim (South Pole)",
+    "latitude": -89.9,
+    "longitude": 0,
+    "noonTempKelvin": 374,
+    "midnightTempKelvin": 112,
+    "permanentlyShadowedKelvin": 40
+  },
+  "spaceWeather": {
+    "cmeEventId": "DONKI-CME-2024-12-17T16:56Z",
+    "flareClass": "X",
+    "classType": "X8.7",
+    "peakRadiationFluxMsvPerHour": 12.35,
+    "arrivalWindowSols": [
+      1,
+      2
+    ],
+    "geomagneticStormKpIndex": 9,
+    "cmeSpeedKmS": 3161,
+    "sourceFlareId": "FLR-2024-05-14T00:08:00-R001",
+    "observedAt": "2024-05-14T00:08Z"
+  },
+  "eclss": {
+    "humanO2KgPerPersonDay": 0.84,
+    "humanWaterLitersPerPersonDay": 2.5,
+    "humanFoodKcalPerPersonDay": 2800,
+    "sabatierWaterRecoveryEfficiency": 0.92,
+    "boschCarbonDioxideScrubRate": 1
+  },
+  "kilopower": {
+    "coreThermalKw": 40,
+    "electricOutputKw": 12,
+    "sodiumHeatPipeTempKelvin": 1073,
+    "shieldRadiationAttenuationRatio": 0.95
+  },
+  "radlab": {
+    "nominalInteriorMsvPerDay": 0.38,
+    "evaExposureMsvPerDay": 0.65,
+    "shelterAttenuationFactor": 0.05,
+    "annualLimitMsv": 500,
+    "mission90DayEstimateMsv": 34.2
+  }
+}

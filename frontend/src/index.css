@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+/* ── Tailwind v4 custom height variant ──────────────────────────────────────
+   Use `short:` prefix for elements that should adapt on landscape phones
+   (height ≤ 500px), e.g. `short:hidden`, `short:text-[9px]`.              */
+@custom-variant short (@media (max-height: 500px));
+
+:root {
+  --font-display: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hud: 'JetBrains Mono', monospace;
+  /* Safe-area shims — overridden at runtime by env() on real devices */
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+html {
+  height: 100dvh;
+  /* Disable pull-to-refresh and over-scroll bounce on iOS during gameplay */
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #030408;
+  color: #f1f5f9;
+  overflow: hidden;
+  user-select: none;
+  height: 100dvh;
+  /* Prevent double-tap zoom and selection flash on game controls */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Portrait-mode guard ────────────────────────────────────────────────────
+   On touch-primary (phone/tablet) devices in portrait orientation, show a
+   full-screen overlay telling the player to rotate to landscape.          */
+.portrait-guard {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #030408;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: #f1f5f9;
+  text-align: center;
+  padding: 32px;
+  pointer-events: all;
+}
+
+@media (orientation: portrait) and (pointer: coarse) and (max-width: 1024px) {
+  .portrait-guard {
+    display: flex;
+  }
+}
+
+.portrait-guard__icon {
+  width: 72px;
+  height: 72px;
+  border: 2px solid rgba(34,211,238,0.6);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rotate-hint 2.5s cubic-bezier(0.4,0,0.2,1) infinite;
+}
+
+@keyframes rotate-hint {
+  0%,100% { transform: rotate(0deg); }
+  40%      { transform: rotate(90deg); }
+  60%      { transform: rotate(90deg); }
+}
+
+/* ── All interactive HUD buttons — minimum 44 × 44 px touch target ──────── */
+button {
+  min-height: 32px;
+}
+
+@media (pointer: coarse) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-hud {
+  font-family: var(--font-hud);
+}
+
+/* ORBY Silver Metallic Button (Per Mockups) */
+.metal-btn {
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 18%, #cbd5e1 52%, #94a3b8 100%);
+  border: 1.5px solid #64748b;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85),
+              inset 0 -2px 0 rgba(71, 85, 105, 0.6),
+              0 4px 12px rgba(0, 0, 0, 0.5),
+              0 1px 2px rgba(0, 0, 0, 0.3);
+  color: #0f172a;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.metal-btn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 20%, #e2e8f0 55%, #a8b5c7 100%);
+  border-color: #94a3b8;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95),
+              0 6px 16px rgba(0, 0, 0, 0.6),
+              0 0 12px rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.metal-btn:active:not(:disabled) {
+  background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 50%, #64748b 100%);
+  box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.4),
+              0 2px 4px rgba(0, 0, 0, 0.4);
+  transform: translateY(1px);
+}
+
+.metal-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+/* ORBY Gold CTA Glow Button */
+.gold-btn {
+  background: linear-gradient(180deg, #fde047 0%, #f59e0b 50%, #d97706 100%);
+  border: 1.5px solid #fbbf24;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6),
+              0 0 25px rgba(245, 158, 11, 0.65),
+              0 4px 14px rgba(0, 0, 0, 0.5);
+  color: #1c1917;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gold-btn:hover {
+  background: linear-gradient(180deg, #fef08a 0%, #fbbf24 45%, #ea580c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
+              0 0 35px rgba(245, 158, 11, 0.9),
+              0 6px 18px rgba(0, 0, 0, 0.6);
+  transform: scale(1.02);
+}
+
+.gold-btn:active {
+  transform: scale(0.98);
+}
+
+/* Glass panel */
+.orby-glass {
+  background: rgba(18, 14, 38, 0.78);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  box-shadow: 0 12px 35px -8px rgba(0, 0, 0, 0.75),
+              0 0 25px -5px rgba(139, 92, 246, 0.2);
+}
+
+/* Twinkling star animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.star-twinkle-fast {
+  animation: twinkle 2s infinite ease-in-out;
+}
+.star-twinkle-medium {
+  animation: twinkle 3.5s infinite ease-in-out;
+}
+.star-twinkle-slow {
+  animation: twinkle 5s infinite ease-in-out;
+}
+
+/* Floating rocket thruster animation */
+@keyframes thrusterFlicker {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.95; }
+  25% { transform: scaleY(1.15) scaleX(0.92); opacity: 1; }
+  50% { transform: scaleY(0.95) scaleX(1.05); opacity: 0.9; }
+  75% { transform: scaleY(1.2) scaleX(0.95); opacity: 1; }
+}
+
+.animate-thruster {
+  animation: thrusterFlicker 0.22s infinite ease-in-out;
+  transform-origin: top center;
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
+}
+
+.animate-float {
+  animation: gentleFloat 4s infinite ease-in-out;
+}
+
+.animate-float-delayed {
+  animation: gentleFloat 4.5s infinite ease-in-out 1.5s;
+}

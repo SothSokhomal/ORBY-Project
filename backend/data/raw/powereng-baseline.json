@@ -1,0 +1,167 @@
+{
+  "datasetId": "NASA-POWERENG-2026-11-14",
+  "releaseDate": "2026-11-14",
+  "sourceDescription": "Flight Engineer baseline — Cmdr. Sarah Chen, power grid & ECLSS systems",
+  "dataSources": {
+    "lrocIllumination": "LRO WAC WAC_POLE_ILL_PCT_SOUTH_100M — pgda.gsfc.nasa.gov/products/54 (100 m/pixel, 88°S–90°S)",
+    "vsatSolarArray": "NASA Langley NTRS 20210011743 — Kerslake et al. 2021 \"Relocatable 10 kW Solar Array for Lunar South Pole Missions\"",
+    "bvadLifeSupport": "NASA/TP-2015-218570 — Anderson, Ewert & Keener 2015 \"Life Support Baseline Values and Assumptions Document\"",
+    "sepDegradation": "GaAs triple-junction solar cell proton damage model — 10 MeV proton fluence, Sumita et al. 2003",
+    "osdrBiology": "NASA OSDR GeneLab — 3 live human spaceflight studies"
+  },
+  "lrocIllumination": {
+    "shackletonRimPct": 86,
+    "nobileRidgePct": 89,
+    "craterFloorPct": 0,
+    "mapResolutionM": 100,
+    "acquisitionPeriod": "Aug 2009 – Aug 2011 (2 lunar years)"
+  },
+  "vsatSpecs": {
+    "powerPerArrayKw": 10,
+    "arraysDeployed": 4,
+    "peakOutputKw": 45,
+    "massPerArrayKg": 180,
+    "sunElevationAngleDeg": 1.5,
+    "arrayHeightM": 15,
+    "sepDegradationPctPerEvent": 5,
+    "cellType": "GaAs triple-junction (InGaP/InGaAs/Ge)"
+  },
+  "bvadBaselines": {
+    "o2KgPerPersonDay": 0.84,
+    "waterLPerPersonDay": 2.5,
+    "foodKcalPerPersonDay": 2800,
+    "co2KgPerPersonDay": 1,
+    "urineLPerPersonDay": 1.4,
+    "condensateLPerPersonDay": 1.8,
+    "sabatierRecoveryEfficiency": 0.92
+  },
+  "osdrBioConsequences": {
+    "boneDensityLossPctPerMonth": 1.5,
+    "muscleMassLossPctPerMonth": 2,
+    "hypoxiaCognitiveOnsetH": 4,
+    "dehydrationKidneyRiskH": 48,
+    "hypothermiaOnsetCabinC": 15,
+    "additionalCaloricNeedHypothermic": 800
+  },
+  "powerEngDiscoveries": [
+    {
+      "day": 5,
+      "title": "LROC Illumination Survey Complete",
+      "finding": "Shackleton rim: 86% mean solar illumination over 2-year LRO baseline. Optimal VSAT array placement confirmed at ridge crest.",
+      "source": "LRO WAC WAC_POLE_ILL_PCT_SOUTH_100M (pgda.gsfc.nasa.gov/products/54)",
+      "bonusScore": 500
+    },
+    {
+      "day": 10,
+      "title": "VSAT Array Efficiency Baseline",
+      "finding": "4 × 10 kW vertical solar arrays producing 45 kW peak at 1.5° sun elevation. GaAs triple-junction cells operating at nominal efficiency.",
+      "source": "NASA Langley NTRS 20210011743 — Kerslake et al. 2021",
+      "bonusScore": 600
+    },
+    {
+      "day": 25,
+      "title": "SEP Proton Flux Detected",
+      "finding": "Solar energetic particle event: 10 MeV proton fluence detected. GaAs photovoltaic lattice displacement damage estimated at 5% output loss.",
+      "source": "GaAs proton damage model, Sumita et al. 2003; VSAT specs NTRS 20210011743",
+      "bonusScore": 800
+    },
+    {
+      "day": 44,
+      "title": "CME Grid Report Filed",
+      "finding": "Class-X storm aftermath: Faraday isolation protocol held. Fission reactor maintained 12 kW through storm. Solar arrays de-rated 5% from SEP damage. All bus circuits nominal.",
+      "source": "NASA KRUSTY (Kilopower) + DONKI CME data + NTRS VSAT specs",
+      "bonusScore": 1200
+    },
+    {
+      "day": 60,
+      "title": "Battery Efficiency Measured",
+      "finding": "500 kWh solid-state battery bank cycle efficiency: 94%. Deep-cycle charge retained through all 3 dark intervals. BVAD life support power draw within budget.",
+      "source": "NASA BVAD Table 4.1 (NASA/TP-2015-218570); Battery GM-02 performance",
+      "bonusScore": 900
+    },
+    {
+      "day": 80,
+      "title": "90-Day Power Budget Projection",
+      "finding": "Mission total generation: 12,960 kWh solar + 25,920 kWh fission = 38,880 kWh. Margin: POSITIVE. Full power budget submitted to Houston.",
+      "source": "NASA Langley VSAT + KRUSTY Kilopower; BVAD total crew consumption",
+      "bonusScore": 1500
+    }
+  ],
+  "ntrsCitations": {
+    "bvad": [
+      {
+        "id": 20150002905,
+        "title": "Life Support Baseline Values and Assumptions Document",
+        "date": "2019-07-11",
+        "authors": [
+          "Anderson, Molly S.",
+          "Ewert, Michael K.",
+          "Keener, John F."
+        ]
+      }
+    ],
+    "vsat": [
+      {
+        "id": 20210011743,
+        "title": "Relocatable 10 kW Solar Array for Lunar South Pole Missions ",
+        "date": "2021-04-16",
+        "authors": [
+          "Richard Pappa",
+          "Chuck Taylor",
+          "Jay Warren"
+        ]
+      },
+      {
+        "id": 20205002773,
+        "title": "Government Reference Concept for a 10 kW Lunar South Pole Solar Array",
+        "date": "2021-08-31",
+        "authors": [
+          "Richard Pappa",
+          "Charles Taylor",
+          "Jay Warren"
+        ]
+      }
+    ],
+    "dust": [
+      {
+        "id": 20240003496,
+        "title": "Lunar Dust Considerations for Vertical Solar Arrays Volume 1:  Lunar Environment and Dust Interactions",
+        "date": "2024-10-01",
+        "authors": [
+          "Christopher J Wohl",
+          "James K Burgess",
+          "Scott P Belbin"
+        ]
+      }
+    ]
+  },
+  "osdrStudies": [
+    {
+      "accession": "OSD-867",
+      "title": "Impact of spaceflight on gene expression in cultured human mesenchymal stem/stromal cell",
+      "date": "2025-03-19",
+      "program": "NASA",
+      "flightProgram": "",
+      "organism": "Homo sapiens",
+      "factors": "Space Flight     time"
+    },
+    {
+      "accession": "OSD-61",
+      "title": "Effect of a 91 day long stay in weightlessness on the International Space Station on mouse skin physiology",
+      "date": "2014-12-31",
+      "program": "ESA",
+      "flightProgram": "International Space Station (ISS)",
+      "organism": "Mus musculus",
+      "factors": "Space Flight     Genotype"
+    },
+    {
+      "accession": "OSD-52",
+      "title": "Expression data from SPHINX (SPaceflight of Huvec: an INtegrated eXperiment)",
+      "date": "2013-01-20",
+      "program": "ESA",
+      "flightProgram": "International Space Station (ISS)",
+      "organism": "Homo sapiens",
+      "factors": "Space Flight"
+    }
+  ]
+}

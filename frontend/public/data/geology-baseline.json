@@ -1,0 +1,292 @@
+{
+  "datasetId": "NASA-GEOLOGY-2026-11-14",
+  "releaseDate": "2026-11-14",
+  "sourceDescription": "Lunar south pole geology baseline — Shackleton Crater region (89.9°S, 0°E)",
+  "dataSources": {
+    "craterGeometry": "LRO LOLA — Zuber et al. (2012) Nature 486, doi:10.1038/nature11216",
+    "waterIce": "LCROSS — Colaprete et al. (2010) Science 330, doi:10.1126/science.1186986",
+    "surfaceFrost": "LRO LAMP — Hayne et al. (2015) Icarus 255, doi:10.1016/j.icarus.2015.03.032",
+    "regolithComp": "Clementine UVVIS — Lucey et al. (2000) JGR Planets 105, E8",
+    "hydrogenDist": "LRO LEND — Mitrofanov et al. (2010) Science 330, doi:10.1126/science.1197358",
+    "ntrsLive": "NASA NTRS API — 15 paper citations fetched live"
+  },
+  "craterGeometry": {
+    "name": "Shackleton Crater",
+    "latitude": -89.9,
+    "longitude": 0,
+    "diameterKm": 21,
+    "depthM": 4200,
+    "rimElevationM": 150,
+    "psrTempKelvin": 90,
+    "rimSunlightPct": 86
+  },
+  "waterIce": {
+    "lcrossIceMassPct": 5.6,
+    "lcrossIceSite": "Cabeus Crater",
+    "lcrossH2OKgPerM3": 155,
+    "lampFrostCoveragePct": 20,
+    "miniRfIceSignature": true,
+    "volatiles": [
+      "H₂O",
+      "CO₂",
+      "CO",
+      "H₂S",
+      "SO₂",
+      "CH₃OH",
+      "NH₃",
+      "C₂H₄"
+    ]
+  },
+  "regolithComposition": {
+    "SiO2Pct": 45,
+    "FeOPct": 8,
+    "Al2O3Pct": 22,
+    "TiO2Pct": 0.5,
+    "CaOPct": 14,
+    "MgOPct": 7.5,
+    "maturityIndex": 0.65
+  },
+  "researchValue": {
+    "yieldMultiplier": 1.56,
+    "scientificRationale": "Ice concentration 5.6% (LCROSS) gives 1.56× research yield vs average lunar site",
+    "isruPotentialRating": "HIGH"
+  },
+  "geologyDiscoveries": [
+    {
+      "day": 7,
+      "title": "Regolith Baseline Completed",
+      "finding": "South Pole regolith: SiO₂ 45%, Al₂O₃ 22%, FeO 8%. Confirms anorthositic highlands composition.",
+      "source": "Clementine UVVIS (Lucey et al. 2000)",
+      "bonusScore": 500
+    },
+    {
+      "day": 14,
+      "title": "Hydrogen Signal Detected",
+      "finding": "Neutron spectrometer detects elevated hydrogen in adjacent PSR — possible subsurface ice.",
+      "source": "LRO LEND (Mitrofanov et al. 2010, Science 330)",
+      "bonusScore": 750
+    },
+    {
+      "day": 21,
+      "title": "Water Ice Confirmed",
+      "finding": "Ice core: 5.6% water ice by mass in permanently shadowed regolith. ISRU potential HIGH.",
+      "source": "LCROSS (Colaprete et al. 2010, Science 330)",
+      "bonusScore": 1500
+    },
+    {
+      "day": 35,
+      "title": "Radar Ice Signature",
+      "finding": "Circular polarization anomaly in Shackleton interior consistent with ice layers (1–3 m depth).",
+      "source": "LRO Mini-RF (Spudis et al. 2010, GRL)",
+      "bonusScore": 1000
+    },
+    {
+      "day": 50,
+      "title": "Volatiles Survey Complete",
+      "finding": "H₂O, CO₂, CH₃OH, SO₂ mapped across 2 km PSR transect. Full volatile inventory submitted.",
+      "source": "LRO LAMP (Hayne et al. 2015, Icarus 255)",
+      "bonusScore": 1200
+    },
+    {
+      "day": 70,
+      "title": "Full Geological Survey Uplinked",
+      "finding": "10 km radius survey complete. Rim in sunlight 86% of time. Data sent to Houston.",
+      "source": "LRO LOLA (Zuber et al. 2012, Nature 486)",
+      "bonusScore": 2000
+    }
+  ],
+  "ntrsCitations": {
+    "lcross": [
+      {
+        "id": 20080015767,
+        "title": "Is There Water on the Moon? NASA's LCROSS Mission",
+        "date": "2018-06-11",
+        "authors": [
+          "Noneman, Steven"
+        ],
+        "categories": [
+          "Lunar And Planetary Science And Exploration"
+        ]
+      },
+      {
+        "id": 20080015990,
+        "title": "Is There Water on the Moon? NASA's LCROSS Mission [Supplemental Video]",
+        "date": "2018-06-11",
+        "authors": [],
+        "categories": [
+          "Lunar And Planetary Science And Exploration"
+        ]
+      },
+      {
+        "id": 20220012983,
+        "title": "Numerical Modelling of Sublimation Losses During Sample Handling Within the Light WAVE Lunar Water Prospecting Instrument",
+        "date": "2022-11-05",
+        "authors": [
+          "J. R. Michel"
+        ],
+        "categories": [
+          "Lunar And Planetary Science And Exploration",
+          "Numerical Analysis"
+        ]
+      },
+      {
+        "id": 20100028141,
+        "title": "LCROSS - Lunar Impactor: Pioneering Risk-Tolerant Exploration in Search for Water on the Moon",
+        "date": "2019-07-12",
+        "authors": [
+          "Andrews, Daniel R."
+        ],
+        "categories": [
+          "Lunar And Planetary Science And Exploration"
+        ]
+      },
+      {
+        "id": 20100036718,
+        "title": "South Pole Hydrogen Distribution for Present Lunar Conditions: Implications for Past Impacts",
+        "date": "2019-07-12",
+        "authors": [
+          "Elphic, R. C.",
+          "Paige, D. A.",
+          "Siegler, M. A."
+        ],
+        "categories": [
+          "Lunar And Planetary Science And Exploration"
+        ]
+      },
+      {
+        "id": 20250003292,
+        "title": "Physics-Informed Machine Learning to Identify Features in LCROSS NIR Data",
+        "date": "2025-07-22",
+        "authors": [
+          "R L Fandozzi",
+          "A D Bravenec",
+          "J W Boyce"
+        ],
+        "categories": [
+          "Lunar and Planetary Science and Exploration",
+          "Space Sciences (General)"
+        ]
+      },
+      {
+        "id": 20180000364,
+        "title": "Robust Exploration and Commercial Missions to the Moon Using LANTR Propulsion and In-Situ Propellants Derived From Lunar Polar Ice (LPI) Deposits",
+        "date": "2019-07-12",
+        "authors": [
+          "Borowski, Stanley K.",
+          "Ryan, Stephen W.",
+          "Burke, Laura M."
+        ],
+        "categories": [
+          "Spacecraft Propulsion And Power"
+        ]
+      },
+      {
+        "id": 20140012500,
+        "title": "Lunar Flashlight: Mapping Lunar Surface Volatiles Using a Cubesat",
+        "date": "2019-07-17",
+        "authors": [
+          "Cohen, B. A.",
+          "Hayne, P. O.",
+          "Banazadeh, P."
+        ],
+        "categories": [
+          "Lunar And Planetary Science And Exploration"
+        ]
+      },
+      {
+        "id": 20240000064,
+        "title": "New Cryogenic Method for Combining Lunar Regolith Simulant and Frozen Volatiles to Generate Icy Lunar Simulated Regolith",
+        "date": "2024-03-11",
+        "authors": [
+          "E K Lewis",
+          "C L Harris",
+          "S Ghosh"
+        ],
+        "categories": [
+          "Lunar and Planetary Science and Exploration"
+        ]
+      },
+      {
+        "id": 20160005014,
+        "title": "Resource Prospector Instrumentation for Lunar Volatiles Prospecting, Sample Acquisition and Processing",
+        "date": "2019-07-11",
+        "authors": [
+          "Colaprete, A.",
+          "Elphic, R.",
+          "Paz, A."
+        ],
+        "categories": [
+          "Instrumentation And Photography",
+          "Lunar And Planetary Science And Exploration"
+        ]
+      }
+    ],
+    "shackleton": [],
+    "frost": [],
+    "viper": [
+      {
+        "id": 20240004881,
+        "title": "Lunar Resource Investigation With NASA's VIPER Mission",
+        "date": "2024-06-16",
+        "authors": [
+          "J Captain",
+          "J Quinn",
+          "A Colaprete"
+        ],
+        "categories": [
+          "Lunar and Planetary Science and Exploration"
+        ]
+      },
+      {
+        "id": 20230004239,
+        "title": "VIPER Mission Traverse Planning – Design, Strategies, and Dynamics",
+        "date": "2023-06-10",
+        "authors": [
+          "K Ennico Smith",
+          "A Colaprete",
+          "M Shirley"
+        ],
+        "categories": [
+          "Astrophysics"
+        ]
+      },
+      {
+        "id": 20230001613,
+        "title": "VIPER Lunar Rover Agile Mission Systems",
+        "date": "2023-03-11",
+        "authors": [
+          "Jay Trimble"
+        ],
+        "categories": [
+          "Ground Support Systems and Facilities (Space)"
+        ]
+      },
+      {
+        "id": 20240001709,
+        "title": "Viper Science Operations: Science Traverse Planning Perspectives, Processes, and Tools.",
+        "date": "2024-03-11",
+        "authors": [
+          "Darlene Sze Shien Lim",
+          "Zara Mirmalek",
+          "Anthony Colaprete"
+        ],
+        "categories": [
+          "Lunar and Planetary Science and Exploration"
+        ]
+      },
+      {
+        "id": 20250000568,
+        "title": "Design and Test of the VIPER Mobility Actuators",
+        "date": "2025-09-26",
+        "authors": [
+          "Parker L Francis",
+          "Alexander R Sobey",
+          "Eric Shults"
+        ],
+        "categories": [
+          "Spacecraft Design, Testing and Performance"
+        ]
+      }
+    ]
+  }
+}

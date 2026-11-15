@@ -1,0 +1,7 @@
+column,dtype,non_null,null_count,null_pct
+timestamp,str,4055,0,0.0
+instrument_id,str,4055,0,0.0
+absorbed_dose_rate,str,4055,0,0.0
+instrument,str,4055,0,0.0
+module,str,0,4055,100.0
+spacecraft,str,4055,0,0.0

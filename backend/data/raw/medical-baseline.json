@@ -1,0 +1,204 @@
+{
+  "datasetId": "NASA-MEDICAL-2026-11-14",
+  "releaseDate": "2026-11-14",
+  "sourceDescription": "Medical Officer baseline — Dr. Marcus Vance, hydroponics & crew health",
+  "dataSources": {
+    "osd575Cmp": "NASA OSDR OSD-575 — Longitudinal CMP blood chemistry + EvePanel cytokines from spaceflight (LSDS-8)",
+    "osd655Veg": "NASA OSDR OSD-655 — VEG-04 Mizuna mustard green hydroponic harvest data from ISS",
+    "lroCrater": "LRO CRaTER dosimetry — Schwadron et al. 2012, Space Weather; Zeitlin et al. 2013, Science",
+    "radLabIss": "NASA OSDR RadLab ISS dosimetry — OSD-452 benchmark dataset",
+    "csaFood": "CSA Food Production on the Moon — Bio-regenerative life support & Naurvik project"
+  },
+  "osd575Cmp": {
+    "studyAccession": "OSD-575",
+    "studyTitle": "Longitudinal Immune and Metabolic Marker Telemetry from Spaceflight Astronauts (LSDS-8)",
+    "studyUrl": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-575",
+    "serumCalciumBaselineMgDl": 9.2,
+    "serumCalciumFlightMgDl": 10.4,
+    "bunBaselineMgDl": 14,
+    "bunFlightMgDl": 19,
+    "creatinineBaselineMgDl": 0.9,
+    "creatinineFlightMgDl": 1.2,
+    "glucoseBaselineMgDl": 85,
+    "glucoseFlightMgDl": 98,
+    "il6BaselinePgMl": 1.8,
+    "il6FlightPgMl": 4.2,
+    "inflammatoryRatioPct": 34
+  },
+  "osd655Veg": {
+    "studyAccession": "OSD-655",
+    "studyTitle": "Pick-and-Eat Salad Crop Growth, Food Safety, and Nutritional Baseline on the ISS (VEG-04)",
+    "studyUrl": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-655",
+    "freshMassPerPillowG": 142.4,
+    "freshMassStdDevG": 18.2,
+    "harvestCycleDays": 28,
+    "waterPerPillowPerCycleL": 1.2,
+    "yieldKgPer28Days": 0.57,
+    "micronutrientCoveragePct": 35,
+    "vitaminCMgPer100g": 48.2,
+    "anthocyaninsUmolPer100g": 112,
+    "potassiumMgPer100g": 320,
+    "moraleBoostPctPerDay": 2
+  },
+  "radiationDosimetry": {
+    "lroCraterOrbitMsvPerDay": 1.52,
+    "surfaceQuietMsvPerDay": 1.36,
+    "acesEvaUnshieldedMsvPerDay": 1.22,
+    "habitatDomeMsvPerDay": 0.82,
+    "regolithVaultMsvPerDay": 0.08,
+    "habitatInteriorMsvPerDay": 0.38,
+    "arsSafeZoneMsv": 50,
+    "arsAdvisoryMsv": 250,
+    "arsEmergencyMsv": 250
+  },
+  "medicalDiscoveries": [
+    {
+      "day": 3,
+      "title": "First Mizuna Harvest Metrics",
+      "finding": "VEG-04 Mizuna mustard greens: 142 g ± 18 g fresh mass per pillow. 28-day cycle yields 0.57 kg, covering 35% of daily micronutrient needs.",
+      "source": "NASA OSDR OSD-655 VEG-04 (ISS Flight-Mass.csv, N=8 valid pillows)",
+      "bonusScore": 400
+    },
+    {
+      "day": 20,
+      "title": "Blood Chemistry Panel Filed",
+      "finding": "Serum calcium elevated 10.4 mg/dL (+13% vs baseline). BUN up 35% — hydration order: >2.5 L/day per crew member. BVAD water budget confirmed.",
+      "source": "NASA OSDR OSD-575 (LSDS-8 CMP flight draw; BVAD NASA/TP-2015-218570)",
+      "bonusScore": 700
+    },
+    {
+      "day": 30,
+      "title": "Cytokine Inflammatory Ratio",
+      "finding": "IL-6 elevated to 4.2 pg/mL (+133%). Overall inflammatory ratio 34% above baseline. Prescribing Rest & Recovery standing orders twice weekly.",
+      "source": "NASA OSDR OSD-575 EvePanel (LSDS-8_Multiplex_serum_immune_EvePanel_TRANSFORMED.csv)",
+      "bonusScore": 800
+    },
+    {
+      "day": 45,
+      "title": "Radiation Dose Review",
+      "finding": "Cumulative exposure within Advisory Zone (<50 mSv). LRO CRaTER orbit baseline: 1.52 mSv/day unshielded. Regolith vault cuts to <0.08 mSv/day (>95% attenuation).",
+      "source": "LRO CRaTER (Schwadron et al. 2012, Space Weather); RadLab ISS OSD-452",
+      "bonusScore": 1000
+    },
+    {
+      "day": 55,
+      "title": "Hydroponics Nutrition Impact",
+      "finding": "Fresh Mizuna greens: 48.2 mg vitamin C + 112 µmol anthocyanins per 100g. Radiation DNA damage scavenging active. Crew morale up. Kidney stone risk reduced.",
+      "source": "NASA OSDR OSD-655 Master Chem (VEG-04 nutritional chemistry data)",
+      "bonusScore": 1100
+    },
+    {
+      "day": 75,
+      "title": "Mission Health Summary",
+      "finding": "75-day cumulative health profile: bone loss within predicted range, IL-6 managed by rest schedule, vitamin C supply maintained. Crew cleared for final 15 days.",
+      "source": "OSD-575 + OSD-655 + LRO CRaTER + BVAD (NASA/TP-2015-218570)",
+      "bonusScore": 1500
+    }
+  ],
+  "ntrsCitations": [
+    {
+      "id": 20150002716,
+      "title": "Probabilistic Risk Assessment for Astronaut Post Flight Bone Fracture",
+      "date": "2019-07-12",
+      "authors": [
+        "Lewandowski, Beth",
+        "Myers, Jerry",
+        "Licata, Angelo"
+      ]
+    },
+    {
+      "id": 20180003177,
+      "title": "International Life Sciences Research Announcement 'Pick and Eat' Project Contributions",
+      "date": "2019-07-11",
+      "authors": [
+        "Moore, Jessica"
+      ]
+    },
+    {
+      "id": 20110013489,
+      "title": "Lunar Reconnaissance Orbiter (LRO): Observations for Lunar Exploration and Science",
+      "date": "2019-07-11",
+      "authors": [
+        "Vondrak, Richard",
+        "Keller, John",
+        "Chin, Gordon"
+      ]
+    },
+    {
+      "id": 20040141712,
+      "title": "Combined effects of space flight factors and radiation on humans",
+      "date": "2019-07-11",
+      "authors": [
+        "Todd, P.",
+        "Pecaut, M. J.",
+        "Fleshner, M."
+      ]
+    }
+  ],
+  "osdrStudies": [
+    {
+      "accession": "OSD-570",
+      "title": "SpaceX Inspiration4 PBMC Profiling: snRNA-seq, snATAC-seq, and T-cell and B-cell repertoire profiling",
+      "date": "2024-05-14",
+      "program": "",
+      "organism": "Homo sapiens",
+      "factors": "time     Space Flight"
+    },
+    {
+      "accession": "OSD-630",
+      "title": "SpaceX Inspiration4 Stool Metagenome Profiling",
+      "date": "2024-05-14",
+      "program": "NASA",
+      "organism": "Microbiota",
+      "factors": "Space Flight     time"
+    },
+    {
+      "accession": "OSD-573",
+      "title": "SpaceX Inspiration4 Dragon Capsule Metagenomic and Metatranscriptomic Microbial Swabs",
+      "date": "2024-05-14",
+      "program": "NASA",
+      "organism": "Microbiota",
+      "factors": "time     Sample Location     Space Flight"
+    },
+    {
+      "accession": "OSD-572",
+      "title": "SpaceX Inspiration4 Oral, Nasal, and Skin Metagenomic and Metatranscriptomic Microbial Swabs",
+      "date": "2024-05-14",
+      "program": "NASA",
+      "organism": "Microbiota",
+      "factors": "Space Flight     time     Sample Location"
+    },
+    {
+      "accession": "OSD-412",
+      "title": "Spatial characterization of microbial communities on multi-species leafy greens grown simultaneously in the Veggie vegetable production systems on the International Space Station VEG-03D",
+      "date": "2024-06-21",
+      "program": "NASA",
+      "organism": "Microbiota",
+      "factors": "Space Flight     Organism Part"
+    },
+    {
+      "accession": "OSD-269",
+      "title": "Microbiological and nutritional analysis of lettuce crops grown on the International Space Station-VEG03A",
+      "date": "2020-02-21",
+      "program": "NASA",
+      "organism": "Microbiota",
+      "factors": "Space Flight     organism part"
+    },
+    {
+      "accession": "OSD-414",
+      "title": "Spatial characterization of microbial communities on multi-species leafy greens grown simultaneously in the Veggie vegetable production systems on the International Space Station VEG-03F",
+      "date": "2024-06-18",
+      "program": "NASA",
+      "organism": "Microbiota",
+      "factors": "Space Flight     Organism Part"
+    },
+    {
+      "accession": "OSD-413",
+      "title": "Spatial characterization of microbial communities on multi-species leafy greens grown simultaneously in the Veggie vegetable production systems on the International Space Station VEG-03E",
+      "date": "2024-06-14",
+      "program": "NASA",
+      "organism": "Microbiota",
+      "factors": "Space Flight     Organism Part"
+    }
+  ]
+}
