@@ -194,10 +194,13 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
   // Dark interval calculation (Pilot difficulty default: 72h dark intervals)
   const cycleDay = (currentDay - 1) % 28;
   const daysUntilDark = cycleDay < 14 ? 14 - cycleDay : 0;
+  const daysRemaining = 90 - currentDay;
   const darkInfo =
-    lunarPhase === 'NIGHT'
+    currentDay >= 90
+      ? 'Final Mission Day'
+      : lunarPhase === 'NIGHT'
       ? 'Dark period active (72h)'
-      : daysUntilDark > 0
+      : daysUntilDark > 0 && daysUntilDark <= daysRemaining
       ? `Dark period in ${daysUntilDark}d (lasts 72h)`
       : 'Sunlit';
 
@@ -623,8 +626,8 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
         <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-950/85 border border-slate-800/90 backdrop-blur-md shadow-xl shrink-0">
           {/* Real-time Countdown Timer (10:00 start) */}
           <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-900 border border-amber-500/40">
-            <span className="hidden sm:inline text-[9px] text-amber-400/80 font-bold tracking-wider uppercase">CLOCK</span>
-            <span className="text-xs font-black text-amber-300 font-mono tabular-nums">{timerString}</span>
+            <span className="hidden sm:inline text-[9px] text-amber-400/80 font-bold tracking-wider uppercase">TIME LEFT</span>
+            <span className={`text-xs font-black font-mono tabular-nums ${remainingSec <= 60 ? 'text-red-400 animate-pulse' : 'text-amber-300'}`}>{timerString}</span>
           </div>
 
           {/* Pause Button ([P] shortcut) */}
@@ -1094,7 +1097,7 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
           className="flex items-center justify-center gap-1.5 px-4 py-0.5 rounded-t-lg bg-slate-950/90 border-t border-x border-cyan-800/80 text-[10px] font-mono text-cyan-300 hover:text-white cursor-pointer shadow-lg uppercase tracking-wider font-bold self-center"
         >
           {isDockCollapsed ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-          <span>{isDockCollapsed ? 'SHOW CREW (4)' : 'CREW COMMAND · CLICK TO ASSIGN STANDING ORDERS'}</span>
+          <span>{isDockCollapsed ? 'SHOW CREW (4)' : 'CREW COMMAND · ASSIGN DAILY TASKS'}</span>
         </button>
 
         {/* 4 Astronaut Cards */}
@@ -1162,7 +1165,7 @@ export const VisorHUD: React.FC<VisorHUDProps> = ({
                   onSelectCrew(member.id);
                 }}
                 className={`p-1.5 sm:p-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 sm:gap-2.5 w-[100px] sm:w-[125px] lg:w-[145px] border ${cardBorderClass}`}
-                title={`Click to assign Standing Orders to ${member.name} (${canonicalRole})`}
+                title={`Click to assign a daily task to ${member.name} (${canonicalRole})`}
               >
                 {/* Status Dot & Health Bar */}
                 <div className="flex flex-col items-center gap-1">

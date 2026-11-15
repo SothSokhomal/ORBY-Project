@@ -673,18 +673,16 @@ export function tickSimulation(
     }
   }
 
-  // Real-time task timer — independent of game speed (Decision D-04 pacing)
-  // deltaDays = 0.15 * (intervalMs/1000) * clockSpeed, so dtRealSec = deltaDays / (0.15 * clockSpeed).
-  // At 1x with 100ms tick: deltaDays=0.015 → dtRealSec=0.1s per tick. A 120s task completes in 120s. ✓
-  const dtRealSec = deltaDays / (0.15 * state.clockSpeed);
+  // Sim-time task timer — scales with game speed so tasks feel proportional to day progression.
+  // dtSimSec = deltaDays / 0.15 (= realDelta × clockSpeed). At 1x: 0.1s/tick; at 6x: 0.6s/tick.
+  // A 60s task at 1x = 60s real; at 6x = 10s real. 120s task at 1x = 120s; at 6x = 20s.
+  const dtSimSec = deltaDays / 0.15;
   newState.crew.forEach((c) => {
     if (c.health <= 0 || c.task === 'idle' || c.task === 'storm_shelter') return;
     const dur = c.taskDurationSeconds ?? 0;
     if (dur <= 0) return;
-    const elapsed = (c.taskSecondsElapsed ?? 0) + dtRealSec;
+    const elapsed = (c.taskSecondsElapsed ?? 0) + dtSimSec;
     if (elapsed >= dur) {
-      // Task complete — bonuses applied separately via completeCrewTask in the UI
-      // Here we simply flag completion by marking elapsed == duration
       c.taskSecondsElapsed = dur;
     } else {
       c.taskSecondsElapsed = elapsed;
@@ -827,9 +825,15 @@ export function tickSimulation(
     newState.mode = 'gameover';
     newState.clockSpeed = 1;
     newState.defeatReason = 'Catastrophic habitat structural decompression.';
-  } else if (newDay >= MISSION_DAYS || newHours >= TOTAL_HOURS) {
+  } else if (newDay >= MISSION_DAYS || newHours >= TOTAL_HOURS || missionSecondsRemaining <= 0) {
     newState.mode = 'gameover';
     newState.clockSpeed = 1;
+    // Clear all active tasks so the win/lose screen never shows mid-countdown timers
+    newState.crew.forEach((c) => {
+      c.task = 'idle';
+      c.taskDurationSeconds = 0;
+      c.taskSecondsElapsed = 0;
+    });
     if (!newState.hasEverAssignedTask) {
       // Never-assigned defeat: player reached Day 90 without giving a single task order
       newState.missionOutcome = 'DEFEAT';

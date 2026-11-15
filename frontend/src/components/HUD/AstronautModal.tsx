@@ -246,9 +246,9 @@ export const AstronautModal: React.FC<AstronautModalProps> = ({
           <div className="mt-4">
             <div className="flex items-center justify-between mb-2">
               <div className="text-xs text-slate-400 uppercase tracking-wider font-bold">
-                ASSIGN TASK — {shortName}:
+                DAILY TASK — {shortName}:
               </div>
-              <div className="text-[10px] text-slate-600 uppercase">Click to preview</div>
+              <div className="text-[10px] text-slate-600 uppercase">1 task per day · click to preview</div>
             </div>
             <div className="space-y-1.5">
               {tasks.map((t) => {

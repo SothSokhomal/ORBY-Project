@@ -218,7 +218,11 @@ export default function App() {
     }, intervalMs);
 
     return () => clearInterval(interval);
-  }, [gameState.mode, gameState.isPaused, gameState.clockSpeed]);
+    // Note: clockSpeed intentionally NOT in deps — speed is read from prev.clockSpeed inside the
+    // callback (always fresh), so the interval doesn't need to restart on speed changes. Including
+    // it caused a race: when the win condition reset clockSpeed to 1, the effect would re-create
+    // the interval before React committed mode='gameover', allowing an extra tick past Day 90.
+  }, [gameState.mode, gameState.isPaused]);
 
   // Mount 3D WebGL Canvas once
   useEffect(() => {
